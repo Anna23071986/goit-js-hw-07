@@ -11,28 +11,29 @@ const boxes = document.querySelector("#boxes");
 const createBtn = document.querySelector("button[data-create]");
 const destroyBtn = document.querySelector("button[data-destroy]");
 
+function createBoxes(amount) {
+  for (let i = 0; i < amount; i++) {
+    const box = document.createElement("div");
+    const boxSize = 30 + i * 10;
+    box.style.width = `${boxSize}px`;
+    box.style.height = `${boxSize}px`;
+    box.style.backgroundColor = getRandomHexColor();
+    boxes.append(box);
+  }
+}
+
 function destroyBoxes() {
   boxes.innerHTML = "";
 }
 
-inputNum.addEventListener("input", () => {
-  const num = +inputNum.value;
+createBtn.addEventListener("click", () => {
+  destroyBoxes();
+  const amount = +inputNum.value;
 
-  createBtn.addEventListener("click", function createBoxes(amount) {
-    destroyBoxes();
-
-    for (let i = 0; i < num; i++) {
-      if (num >= 1 && num <= 100) {
-        const box = document.createElement("div");
-        const boxSize = 30 + i * 10;
-        box.style.width = `${boxSize}px`;
-        box.style.height = `${boxSize}px`;
-        box.style.backgroundColor = getRandomHexColor();
-        boxes.append(box);
-      }
-    }
+  if (amount >= 1 && amount <= 100) {
+    createBoxes(amount);
     inputNum.value = "";
-  });
+  }
 });
 
 destroyBtn.addEventListener("click", destroyBoxes);
